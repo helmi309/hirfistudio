@@ -1,0 +1,151 @@
+<!-- 
+   |||       ||||        |||       |||     || ||||||||||||  ||||||||||  |||       |||        |||       |||     ||
+   ||||     || ||       |||||      ||||    ||      ||       ||          ||||     ||||       |||||      ||||    ||
+   || ||   ||  ||      ||   ||     || ||   ||      ||       ||          || ||   || ||      ||   ||     || ||   ||
+   ||  || ||   ||     ||     ||    ||  ||  ||      ||       ||||||||||  ||  || ||  ||     ||     ||    ||  ||  ||
+   ||   |||    ||    |||||||||||   ||   || ||      ||       ||          ||   |||   ||    |||||||||||   ||   || ||
+   ||    |     ||   ||         ||  ||    ||||      ||       ||          ||    |    ||   ||         ||  ||    ||||
+  ||||        |||| ||||       |||| ||     |||      ||       |||||||||| ||||       |||| ||||       |||| ||     |||
+-->
+
+<div class="alert {{alertset.class}} lighten-4 {{alertset.class}}-text text-darken-2 {{alertset.show}}">
+  <span ng-repeat="(key, value) in alertset.msg">{{value}}</span>
+</div>
+  
+  <!-- Include dari file SplCtrl -->
+  <div class="panel panel-default" ng-controller="SplCtrl">
+  
+    <!-- Page title -->
+    <div class="panel-heading bg-white">
+      <span class="font-bold"><left><font color="#ffffff"><b>LIST PERNYATAAN LEMBUR KARYAWAN</b></font></left></span>
+    </div>
+    <!-- /end page title -->
+  
+    <div class="panel-body">
+      <div class="row">
+  
+        <!-- Button -->
+        <div class="col-sm-8 m-b-xs">
+          <!-- Button create -->
+          <span tooltip="Tambah Data" ng-if="dataUser.level !=1 ">
+            <a md-ink-ripple ui-sref="app.spl-create" class="btn btn-sm btn-default"><i class="glyphicon glyphicon-plus-sign"></i></a>
+          </span>
+          <!-- Button refresh -->
+          <span tooltip="Refresh data">
+            <button md-ink-ripple class="btn btn-sm btn-default" ng-click="refreshData()"><i class="glyphicon glyphicon-refresh"></i></button>
+          </span>
+          <!-- Button print -->
+          <span tooltip="Cetak data">
+            <button md-ink-ripple class="btn btn-sm btn-default" ng-click="print()"><i class="glyphicon glyphicon-print"></i></button>
+          </span>
+        </div>
+        <!-- /end button -->
+  
+        <!-- Form searching -->
+        <div class="col-sm-4">
+          <div class="input-group pull-right">
+            <input type="text" class="input-sm form-control" placeholder="Search" ng-model="main.term" ng-disabled="disUtamrow.txtCari" ng-enter="getData()">
+            <span class="input-group-btn" tooltip="Cari Data">
+              <button md-ink-ripple class="btn btn-sm btn-default" type="button" ng-click="getData()" ng-disabled="main.term ==''">Cari</button>
+            </span>
+          </div>
+        </div>
+        <!-- /end form searching -->
+              
+      </div>
+    </div>
+  
+    <!-- Tabel responsive -->
+    <div class="table-responsive">
+      <table class="table table-striped">
+          
+        <!-- Label field -->
+        <thead>
+          <tr>
+            <th class="col-md-2">Nama</th>
+            <th class="col-md-2">Jam Masuk/Keluar</th>
+            <th class="col-md-2">Pekerjaan</th>
+            <th class="col-md-2">Tanggal Lembur</th>
+            <th class="col-md-2">Penanggung Jawab</th>
+            <th class="col-md-1">Pin</th>
+            <th class="col-md-2" >Aksi</th>
+          </tr>
+        </thead>
+        <!-- /end label field -->
+  
+        <tbody>
+          <tr ng-repeat="row in dataSpl">
+  
+            <!-- Include list data -->
+            <td class="col-md-2">{{row.nama}}</td>
+            <td class="col-md-2">{{row.jam_masuk}}/{{row.jam_keluar}}</td>
+            <td class="col-md-2">{{row.pekerjaan}}</td>
+            <td class="col-md-2">{{row.tanggal}}</td>
+            <td class="col-md-2">{{row.penanggung_jawab}}</td>
+            <td class="col-md-1">{{row.pin}}</td>
+            <!-- /end include list data -->
+  
+            <!-- Button aksi -->
+            <td class="col-md-2">
+              <!--<button type="button" ng-click="spl(row.id)" md-ink-ripple tooltip="Detail Spl" class="btn btn-sm btn-info">-->
+                <!--<i class="glyphicon glyphicon-zoom-in"></i>-->
+              <!--</button>-->
+              <a ng-if="dataUser.level !=1" ui-sref="app.spl-edit({id:row.id})"  md-ink-ripple tooltip="Edit Data" class="btn btn-sm btn-defaul">
+                <i class="glyphicon glyphicon-edit"></i>
+              </a>
+              <button ng-if="dataUser.level !=1"type="button" ng-click="hapus(row.id)" md-ink-ripple tooltip="Hapus Data" class="btn btn-sm btn-danger">
+                <i class="glyphicon glyphicon-trash"></i>
+              </button>
+            </td>
+            <!-- /end button aksi -->
+  
+          </tr>
+        </tbody>
+  
+      </table>
+    </div>
+    <!-- /end tabel responsive -->
+  
+    <!-- panel pagination-->
+    <div class="panel-body">
+      <div class="row">
+  
+        <!-- Length data -->
+        <div class="col-sm-4 text-center-xs" style="margin-top: 27px;">
+          <small>Menampilkan {{from}}-{{to}} dari {{total}} data</small>
+        </div>
+        <!-- /end length data -->
+  
+        <!-- Button page & perpage -->
+        <div class="col-sm-8 text-right text-center-xs">
+          <ul class="pagination m-t-none m-b-none">
+            <li tooltip="Halaman Pertama">
+              <button md-ink-ripple class="btn btn-default" type="button" ng-click='firstPage()' ng-disabled='current_page == 1 || disUtamrow.btnPagging'>
+                <i class="fa fa-angle-double-left"></i>
+              </button>
+            </li>
+            <li tooltip="Halaman Sebelumnya">
+              <button md-ink-ripple class="btn btn-default" type="button" ng-click='previousPage()' ng-disabled='current_page <= 1 || disUtamrow.btnPagging'>
+                <i class="fa fa-angle-left"></i>
+              </button>
+            </li>
+            <li tooltip="Halaman Selanjutnya">
+              <button md-ink-ripple class="btn btn-default" type="button" ng-click='nextPage()' ng-disabled='main.page >= last_page || disUtamrow.btnPagging'>
+                <i class="fa fa-angle-right"></i>
+              </button>
+            </li>
+            <li tooltip="Halaman Terakhir">
+              <button md-ink-ripple class="btn btn-default" type="button" ng-click='lastPage()' ng-disabled='main.page >= last_page || disUtamrow.btnPagging'>
+                <i class="fa fa-angle-double-right"></i>
+              </button>
+            </li>
+          </ul>
+        </div>
+        <!-- /end button page & perpage -->
+  
+      </div>
+    </div>
+    <!-- /panel pagination -->
+          
+  </div>
+  <!-- /end include dari splctrl -->

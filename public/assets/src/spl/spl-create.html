@@ -1,0 +1,182 @@
+<!-- 
+   |||       ||||        |||       |||     || ||||||||||||  ||||||||||  |||       |||        |||       |||     ||
+   ||||     || ||       |||||      ||||    ||      ||       ||          ||||     ||||       |||||      ||||    ||
+   || ||   ||  ||      ||   ||     || ||   ||      ||       ||          || ||   || ||      ||   ||     || ||   ||
+   ||  || ||   ||     ||     ||    ||  ||  ||      ||       ||||||||||  ||  || ||  ||     ||     ||    ||  ||  ||
+   ||   |||    ||    |||||||||||   ||   || ||      ||       ||          ||   |||   ||    |||||||||||   ||   || ||
+   ||    |     ||   ||         ||  ||    ||||      ||       ||          ||    |    ||   ||         ||  ||    ||||
+  ||||        |||| ||||       |||| ||     |||      ||       |||||||||| ||||       |||| ||||       |||| ||     |||
+-->
+
+<!-- Include dari SplCreateCtrl -->
+<div ng-controller="SplCreateCtrl">
+
+    <!-- Page Title -->
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1 class="mainTitle">FORMULIR PERNYATAAN LEMBUR KARYAWAN</h1>
+            </div>
+            <div ncy-breadcrumb></div>
+        </div>
+    </section>
+    <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+        {{alert.msg}}
+    </uib-alert>
+    <!-- /end page title -->
+
+    <!-- Form validation -->
+    <div class="container-fluid container-fullw bg-white">
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+
+                    <!-- Form input -->
+                    <form name="Form">
+
+                        <!-- Form input data -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <fieldset>
+                                    <!-- Form input nama -->
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.nama.$dirty && Form.nama.$invalid, 'has-success':Form.nama.$valid}">
+                                        <label class="control-label"> Nama <span class="symbol required"></span></label>
+                                        <input type="text" placeholder="Enter your Nama" class="form-control"
+                                               name="nama" ng-model="myModel.nama" required/>
+                                        <span class="error text-small block"
+                                              ng-if="Form.nama.$dirty && Form.nama.$invalid">Nama is required</span>
+                                        <span class="success text-small" ng-if="Form.nama.$valid">Thank You!</span>
+                                    </div>
+                                    <!-- Form input jam masuk -->
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.jam_masuk.$dirty && Form.jam_masuk.$invalid, 'has-success':Form.jam_masuk.$valid}">
+                                        <label class="control-label"> Jam Masuk <span
+                                                class="symbol required"></span></label>
+                                        <input type="text" placeholder="Enter your Jam Masuk" class="form-control"
+                                               name="jam_masuk" ng-model="myModel.jam_masuk" required
+                                               onfocus="convertTojam(this);"
+                                               onkeyup="convertTojam(this);" minlength="5 " maxlength="5"/>
+                                        <span class="error text-small block"
+                                              ng-if="Form.jam_masuk.$dirty && Form.jam_masuk.$invalid">Jam Masuk is required</span>
+                                        <span class="success text-small" ng-if="Form.jam_masuk.$valid">Thank You!</span>
+                                    </div>
+                                    <!-- Form input jam keluar -->
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.jam_keluar.$dirty && Form.jam_keluar.$invalid, 'has-success':Form.jam_keluar.$valid}">
+                                        <label class="control-label"> Jam Keluar <span
+                                                class="symbol required"></span></label>
+                                        <input type="text" placeholder="Enter your Jam Keluar" class="form-control"
+                                               name="jam_keluar" ng-model="myModel.jam_keluar" onfocus="convertTojam(this);"
+                                               onkeyup="convertTojam(this);" minlength="5 " maxlength="5" required />
+                                        <span class="error text-small block"
+                                              ng-if="Form.jam_keluar.$dirty && Form.jam_keluar.$error.required">Jam Keluar is required.</span>
+                                        <span class="success text-small"
+                                              ng-if="Form.jam_keluar.$valid">Thank You!</span>
+                                    </div>
+                                    <!-- Form input pekerjaan -->
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.pekerjaan.$dirty && Form.pekerjaan.$invalid, 'has-success':Form.pekerjaan.$valid}">
+                                        <label class="control-label"> Pekerjaan <span
+                                                class="symbol required"></span></label>
+                                        <textarea type="text" placeholder="Enter your Pekerjaan" class="form-control"
+                                                  name="pekerjaan" ng-model="myModel.pekerjaan" required></textarea>
+                                        <span class="error text-small block"
+                                              ng-if="Form.pekerjaan.$dirty && Form.pekerjaan.$error.required">Pekerjaan is required.</span>
+                                        <span class="success text-small" ng-if="Form.pekerjaan.$valid">Thank You!</span>
+                                    </div>
+                                    <!-- Form input tanggal -->
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.tanggal.$dirty && Form.tanggal.$invalid, 'has-success':Form.tanggal.$valid}">
+                                        <label class="control-label"> Tanggal Lembur <span
+                                                class="symbol required"></span></label>
+                                        <p class="input-group">
+                                            <input type="text" class="form-control" name="tanggal"
+                                                   uib-datepicker-popup="{{format}}"
+                                                   datepicker-options="datepickerOptions" ng-required="true"
+                                                   close-text="Close" placeholder="Enter your Tanggal Lembur"
+                                                   is-open="opened" ng-model="myModel.tanggal" required/>
+                                            <span class="input-group-btn"><button type="button" class="btn btn-default"
+                                                                                  ng-click="open($event)"><i
+                                                    class="glyphicon glyphicon-calendar"></i></button></span>
+                                        </p>
+                                        <span class="error text-small block"
+                                              ng-if="Form.tanggal.$dirty && Form.tanggal.$invalid">Tanggal Lembur is required</span>
+                                        <span class="success text-small" ng-if="Form.tanggal.$valid">Thank You!</span>
+                                    </div>
+                                    <!-- Form Input Penanggung Jawab -->
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.penanggung_jawab.$dirty && Form.penanggung_jawab.$invalid, 'has-success':Form.penanggung_jawab.$valid}">
+                                        <label class="control-label"> Penanggung Jawab <span
+                                                class="symbol required"></span></label>
+                                        <input type="text" placeholder="Enter your Penanggung Jawab"
+                                               class="form-control" name="penanggung_jawab"
+                                               ng-model="myModel.penanggung_jawab" required></label>
+                                        <span class="error text-small block"
+                                              ng-if="Form.penanggung_jawab.$dirty && Form.penanggung_jawab.$error.required">Penanggung Jawab is required.</span>
+                                        <span class="success text-small"
+                                              ng-if="Form.penanggung_jawab.$valid">Thank You!</span>
+                                    </div>
+                                    <!-- Form Input Pin -->
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.pin.$dirty && Form.pin.$invalid, 'has-success':Form.pin.$valid}">
+                                        <label class="control-label"> Pin <span class="symbol required"></span></label>
+                                        <input type="text" placeholder="Enter your Pin" class="form-control" name="pin"
+                                               ng-model="myModel.pin" required></label>
+                                        <span class="error text-small block"
+                                              ng-if="Form.pin.$dirty && Form.pin.$error.required">Pin is required.</span>
+                                        <span class="success text-small" ng-if="Form.pin.$valid">Thank You!</span>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <!-- /end form input data -->
+
+                        <!-- Button Aksi -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="pull-left">
+                                    <button md-ink-ripple class="btn btn-primary" ng-click="submitData(true)"
+                                            ng-disabled="Form.$invalid || process">Simpan & Kembali
+                                    </button>
+                                    <button type="reset" class="btn btn-primary btn-o" ng-disabled="process"
+                                            ng-click="form.reset(Form)">Reset
+                                    </button>
+                                    <button md-ink-ripple class="btn btn-primary btn-o" ui-sref="app.spl"
+                                            ng-disabled="process">Kembali
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /end button aksi -->
+
+                    </form>
+                    <!-- /end form input -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /end form validation -->
+
+</div>
+<script>
+    function convertTojam(objek) {
+        separator = ":";
+        a = objek.value;
+        b = a.replace(/[^\d]/g, "");
+        c = "";
+        panjang = b.length;
+        j = 0;
+        for (i = panjang; i > 0; i--) {
+            j = j + 1;
+            if (((j % 2) == 1) && (j != 1)) {
+                c = b.substr(i - 1, 1) + separator + c;
+            } else {
+                c = b.substr(i - 1, 1) + c;
+            }
+        }
+        objek.value = c;
+    }
+</script>
+<!-- /end include dari splcreatectrl -->

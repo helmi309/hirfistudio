@@ -1,0 +1,76 @@
+<!-- 
+   |||       ||||        |||       |||     || ||||||||||||  ||||||||||  |||       |||        |||       |||     ||
+   ||||     || ||       |||||      ||||    ||      ||       ||          ||||     ||||       |||||      ||||    ||
+   || ||   ||  ||      ||   ||     || ||   ||      ||       ||          || ||   || ||      ||   ||     || ||   ||
+   ||  || ||   ||     ||     ||    ||  ||  ||      ||       ||||||||||  ||  || ||  ||     ||     ||    ||  ||  ||
+   ||   |||    ||    |||||||||||   ||   || ||      ||       ||          ||   |||   ||    |||||||||||   ||   || ||
+   ||    |     ||   ||         ||  ||    ||||      ||       ||          ||    |    ||   ||         ||  ||    ||||
+  ||||        |||| ||||       |||| ||     |||      ||       |||||||||| ||||       |||| ||||       |||| ||     |||
+-->
+
+<md-dialog style="width: 1200px;">
+
+    <!-- Title detail -->
+    <div class="panel-heading bg-detail-title">
+      <span class="font-detail-title"><center>DETAIL DATA PERNYATAAN LEMBUR KARYAWAN</center></span>
+    </div>
+    <!-- /end title detail -->
+  
+    <!-- Body detail -->
+    <div class="panel-body">
+      <div class="form-horizontal">
+        <div class="form-group">
+          <label class="col-sm-3 control-label">nama :</label>
+          <div ng-if="input.prov_id != ''" class="col-sm-9">
+            <p class="form-control-static">
+              <span style="padding-left: 8px;"></span>{{myModel.nama}}
+            </p>
+          </div>
+          <label class="col-sm-3 control-label">Jam Masuk :</label>
+          <div ng-if="input.prov_id != ''" class="col-sm-9">
+            <p class="form-control-static">
+              <span style="padding-left: 8px;"></span>{{myModel.jam_masuk}}
+            </p>
+          </div>
+          <label class="col-sm-3 control-label">Jam Keluar :</label>
+          <div ng-if="input.prov_id != ''" class="col-sm-9">
+            <p class="form-control-static">
+              <span style="padding-left: 8px;"></span>{{myModel.jam_keluar}}
+            </p>
+          </div>
+          <label class="col-sm-3 control-label">Pekerjaan :</label>
+          <div ng-if="input.prov_id != ''" class="col-sm-9">
+            <p class="form-control-static">
+              <span style="padding-left: 8px;"></span>{{myModel.pekerjaan}}
+            </p>
+          </div>
+          <label class="col-sm-3 control-label">tanggal :</label>
+          <div ng-if="input.prov_id != ''" class="col-sm-9">
+            <p class="form-control-static">
+              <span style="padding-left: 8px;"></span>{{myModel.tanggal}}
+            </p>
+          </div>
+          <label class="col-sm-3 control-label">Penanggung Jawab :</label>
+          <div ng-if="input.prov_id != ''" class="col-sm-9">
+            <p class="form-control-static">
+              <span style="padding-left: 8px;"></span>{{myModel.penanggung_jawab}}
+            </p>
+          </div>
+          <label class="col-sm-3 control-label">Pin :</label>
+          <div ng-if="input.prov_id != ''" class="col-sm-9">
+            <p class="form-control-static">
+              <span style="padding-left: 8px;"></span>{{myModel.pin}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /end body detail -->
+  
+    <!-- Footer detail -->
+    <footer class="panel-footer text-center" style="background: #ffffff">
+      <md-button class="btn btn-fw btn-default" ng-click='cancel()' tooltip="Kembali">Kembali</md-button>
+    </footer>
+    <!-- /end footer detail -->
+  
+</md-dialog>
