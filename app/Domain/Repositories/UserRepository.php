@@ -71,9 +71,46 @@ class UserRepository extends AbstractRepository implements UserInterface, Crudab
             'email'    => e($data['email']),
             'password' => bcrypt($data['password']),
             'level'    => '0',
+            'verifikasi'    => '0',
             'pin'      => e($data['pin'])
         ]);
     }
+    public function createbylangdingpage(array $data)
+    {
+        try {
+            $verifikasi =str_random(36);
+            // Mengeksekusi Create data ke dalam SQL.
+            $simpan =parent::create([
+                'username' => e($data['username']),
+                'email' => e($data['email']),
+                'password' => bcrypt($data['password']),
+                'level' => '0',
+                'verifikasi' => $verifikasi,
+                'pin' => e($data['pin'])
+            ]);
+
+        \Mail::send('emails/email', [
+
+            'username' => $data['username'],
+            'email' => $data['email'],
+            'verivikasi' => $verifikasi,], function ($message) use ($data) {
+
+            $message->to($data['email']);
+            $message->subject('Info dari Hirfistudio');
+
+        });
+            session()->flash('auth_message', 'Data Berhasil Dibuat Silahkan Konfirmasi email.');
+
+            return redirect('/sigup');
+        }
+        catch (\Exception $e) {
+            // store errors to log
+            \Log::error('class : ' . UserRepository::class . ' method : create | ' . $e);
+
+            return $e;
+        }
+    }
+
 
     /**
      * @param $id

@@ -17,7 +17,9 @@ Route::resource('spl', 'SplController');
 // Rute API tabel User
 Route::resource('users', 'UserController');
 Route::put('updatePass-users', 'UserController@updatePass');
+Route::get('users-aktif/{id}', 'UserController@Activation');
 Route::get('get-session', 'UserController@getSession');
+Route::post('create-users-by-landingpage', 'UserController@createbylangdingpage');
 
 Route::group(['namespace' => 'Auth'], function () {
     // Authentication routes...

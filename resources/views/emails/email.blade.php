@@ -19,7 +19,7 @@
 <div style="background: #fff; box-shadow: 4px 4px 2px #bbb; width: 600px; margin: auto; padding: 50px 25px; border-radius: 5px;">
 
     <h4 style="margin: 5px; padding: 0; color: #cc4433; text-align: center;">
-        <img src="{{ $message->embed(public_path() . '/assets/images/Malangkab.png') }}" width="100px">
+        <img src="{{ $message->embed(public_path() . '/assets_mobile/images/ihuiwyeuiyuweyjwehqw.png') }}" width="100px">
 
           <center>  <span style="Margin-top:0;font-weight:normal;font-family:sans-serif;Margin-bottom:15px;text-align:center;font-size:13px;line-height:19px;color:#97a3b1;Margin:0">
                 <em><a style="text-decoration: none;font-style:normal;color:#1bb4d5 ;"
@@ -45,22 +45,18 @@ Jl. Panji No. 158 Lt. IV Kepanjen-Malang
         <tbody>
         <tr>
             <td width="25%" valign="top">Nama Pengguna</td>
-            <td width="75%" valign="top">{{$name}}</td>
+            <td width="75%" valign="top">{{$username}}</td>
         </tr>
         <tr>
             <td width="25%" valign="top">Alamat E-Mail</td>
             <td width="75%" valign="top">{{$email}}</td>
         </tr>
-        <tr>
-            <td width="25%" valign="top">Password</td>
-            <td width="75%" valign="top">{{$password}}</td>
-        </tr>
         </tbody>
     </table>
     <p>
-        Lakukan Login Sistem JDIH melalui link:
+        Lakukan Verifikasi email:
         <a href="
-                {{ URL::to('login') }}"><button>Klik</button>
+                {{url('api/users-aktif', $verivikasi)}}"><button>Klik</button>
         </a>
     </p>
 

@@ -20,7 +20,8 @@ class CreateUserTable extends Migration
             $table->string('email');
             $table->string('password');
             $table->string('level');
-            $table->integer('pin');
+            $table->string('pin');
+            $table->string('verifikasi');
             $table->rememberToken();
             $table->timestamps();
         });

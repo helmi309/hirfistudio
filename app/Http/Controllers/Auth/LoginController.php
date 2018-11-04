@@ -45,15 +45,23 @@ class LoginController extends Controller
         // return $request->all();
         if (Auth::attempt($request->only('email', 'password'), true)) {
 
-
-            session()->put('username', Auth::user()->username);
-            session()->put('email', Auth::user()->email);
-            session()->put('level', Auth::user()->level);
-            session()->put('user_id', Auth::user()->id);
+            session()->put('verifikasi', Auth::user()->verifikasi);
+            if (session('verifikasi') == '0') {
+                session()->put('username', Auth::user()->username);
+                session()->put('email', Auth::user()->email);
+                session()->put('level', Auth::user()->level);
+                session()->put('user_id', Auth::user()->id);
                 return redirect()->route('backoffice');
+            } else {
+                Session()->flush();
+                Auth::logout();
+                session()->flash('auth_message', 'Email Belum terferifikasi!');
+                return redirect()->route('signin');
+
+            }
         } else {
             session()->flash('auth_message', 'Kombinasi email dan password salah!');
-                        return redirect()->route('signin');
+            return redirect()->route('signin');
         }
 
     }
@@ -61,7 +69,7 @@ class LoginController extends Controller
     public function getLogout()
     {
         Auth::logout();
-
+        Session()->flush();
         return redirect()->route('signin');
     }
 }

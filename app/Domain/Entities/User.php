@@ -20,7 +20,7 @@ class User extends Entities implements AuthenticatableContract, CanResetPassword
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'password', 'level', 'pin',
+        'username', 'email', 'password', 'level', 'pin','verifikasi',
     ];
 
     protected $table ='users';

@@ -109,8 +109,13 @@
 
                         <!-- Form Input & Validation -->
                         <form  action="api/post-login" method="post">
+                            <h4>
                             <?php if (session()->has('auth_message')) { ?>
                             <h7 style="color: red"><?php echo session()->get('auth_message') ?></h7>
+    <?php } ?></h4>
+                            <h4>
+                            <?php if (session()->has('auth_message2')) { ?>
+                            <h7 style="color: green"><?php echo session()->get('auth_message2') ?></h7>
     <?php } ?></h4>
 
                             <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"/>

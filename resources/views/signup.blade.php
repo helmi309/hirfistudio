@@ -104,28 +104,35 @@
                 <img src="../assets_mobile/images/preload-logo.png">
               </a>
               <!-- /end logo heading -->
-
+              <form  action="api/create-users-by-landingpage" method="post">
+                  <h4>
+                  <?php if (session()->has('auth_message')) { ?>
+                <h7 style="color: green"><?php echo session()->get('auth_message') ?></h7>
+                  <?php } ?></h4>
               <!-- Form Input & Validation -->
-              <div class="pageapp-login-input">
+                <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"/>
+
+                <div class="pageapp-login-input">
                 <i class="login-icon ion-ios-person-outline"></i>
-                <input type="text" value="Username" onfocus="if (this.value=='Username') this.value = ''" onblur="if (this.value=='') this.value = 'Username'">
+                <input type="text" name="username" value="Username" onfocus="if (this.value=='Username') this.value = ''" onblur="if (this.value=='') this.value = 'Username'">
               </div>
               <div class="pageapp-login-input">
                 <i class="login-icon ion-ios-unlocked-outline"></i>
-                <input type="text" value="Pin" onfocus="if (this.value=='Pin') this.value = ''" onblur="if (this.value=='') this.value = 'Pin'">
+                <input type="text" name="pin" value="Pin" onfocus="if (this.value=='Pin') this.value = ''" onblur="if (this.value=='') this.value = 'Pin'">
               </div>
               <div class="pageapp-login-input">
                 <i class="login-icon ion-ios-at-outline"></i>
-                <input type="text" value="Email Address" onfocus="if (this.value=='Email Address') this.value = ''" onblur="if (this.value=='') this.value = 'Email Address'">
+                <input type="text" name="email" value="Email Address" onfocus="if (this.value=='Email Address') this.value = ''" onblur="if (this.value=='') this.value = 'Email Address'">
               </div>            
               <div class="pageapp-login-input full-bottom">
                 <i class="login-icon ion-android-close"></i>
-                <input type="password" value="password" onfocus="if (this.value=='password') this.value = ''" onblur="if (this.value=='') this.value = 'password'">
+                <input type="password" name="password" value="password" onfocus="if (this.value=='password') this.value = ''" onblur="if (this.value=='') this.value = 'password'">
               </div>
               <!-- /end form input & validation -->
 
               <!-- Butoon Aksi -->
-              <a href="#" class="button button-blue button-icon button-full half-top half-bottom"><i class="ion-ios-checkmark-outline"></i>Create Account</a>
+                <button type="submit" class="button button-blue button-icon button-full half-top full-bottom"><i class="ion-ios-checkmark-outline"></i>Create Account</button>
+              </form>
               <div class="pageapp-login-social">
                 <a href="/signin" class="button button-green button-icon button-full half-top full-bottom"><i class="ion-log-in"></i>Login Here</a>
               </div>

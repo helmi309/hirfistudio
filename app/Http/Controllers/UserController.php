@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain\Entities\User;
 use App\Domain\Repositories\UserRepository;
 use App\Http\Requests\User\PasswordRequest;
 use App\Http\Requests\User\UserCreateRequest;
@@ -25,7 +26,6 @@ class UserController extends Controller
     public function __construct(UserRepository $user)
     {
         $this->user = $user;
-         $this->middleware('auth');
     }
 
     /**
@@ -37,10 +37,12 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        $this->middleware('auth');
         return $this->user->paginate(10, $request->input('page'), $column = ['*'], '', $request->input('term'));
     }
     public function updatePass(PasswordRequest $request)
     {
+        $this->middleware('auth');
         return $this->user->updatePassword($request->all());
     }
 
@@ -60,6 +62,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        $this->middleware('auth');
         return $this->user->findById($id);
     }
 
@@ -77,8 +80,35 @@ class UserController extends Controller
      */
     public function store(UserCreateRequest $request)
     {
+        $this->middleware('auth');
+
         return $this->user->create($request->all());
     }
+    public function createbylangdingpage(Request $request)
+    {
+        return $this->user->createbylangdingpage($request->all());
+    }
+    public function Activation($token)
+    {
+        $verificationUser = User::where('verifikasi', $token)->first();
+        if(isset($verificationUser) ){
+            $user = $verificationUser->verifikasi;
+            if($verificationUser->verifikasi != '0') {
+                \DB::table('users')
+                    ->where('id', $verificationUser->id)
+                    ->update(['verifikasi' => 0]);
+                session()->flash('auth_message2', 'Email Kamu Telah Terverifikasi. Silahkan login sekarang juga.');
+                return redirect('/signin');
+            }else{
+                session()->flash('auth_message', 'Email Kamu Terlah Terverifikasi Sebelumnya. Silahkan login sekarang juga.');
+                return redirect('/signin');
+
+            }
+        }else{
+            session()->flash('auth_message', 'Maaf Email Tidak dapat di identifikasi.');
+            return redirect('/sigup');
+}
+   }
 
     /**
      * @api {put} api/user/id Request Update User by ID
@@ -96,6 +126,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->middleware('auth');
         return $this->user->update($id, $request->all());
     }
 
@@ -111,11 +142,13 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        $this->middleware('auth');
         return $this->user->delete($id);
     }
 
     public function getSession()
     {
+
         $this->middleware('auth');
         if (session('email') == null) {
             return response()->json(
