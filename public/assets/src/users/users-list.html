@@ -1,0 +1,102 @@
+<div class="alert {{alertset.class}} lighten-4 {{alertset.class}}-text text-darken-2 {{alertset.show}}">
+    <span ng-repeat="(key, value) in alertset.msg">{{value}}</span>
+</div>
+<div class="panel panel-default" ng-controller="UsersCtrl">
+    <div class="panel-heading bg-white" style="background: white;">
+        <span class="font-bold"><left><font color="black"><b>DATA PENGGUNA</b></font></left></span>
+    </div>
+    <div class="panel-body bg-tr-white" style="background: white;">
+        <div class="row">
+            <div class="col-sm-8 m-b-xs">
+                <span uib-tooltip="Tambah Data" >
+                <a md-ink-ripple ui-sref="app.users-create" class="btn btn-sm btn-default">
+                    <i class="glyphicon glyphicon-plus-sign"></i></a>
+                </span>
+                <span uib-tooltip="Refresh">
+                <button md-ink-ripple class="btn btn-sm btn-default" ng-click="refreshData()">
+                    <i class="glyphicon glyphicon-refresh"></i>
+                </button>
+            </span>
+            </div>
+            <div class="col-sm-4">
+                <div class="input-group pull-right">
+                    <input type="text" class="input-sm form-control" placeholder="Pencariaan..." ng-model="main.term"
+                           ng-disabled="disUtamrow.txtCari"
+                           ng-enter="getData()">
+                    <span class="input-group-btn" uib-tooltip="Cari Data">
+                    <button md-ink-ripple class="btn btn-sm btn-default" type="button" ng-click="getData()"
+                            ng-disabled="main.term ==''">Cari
+                    </button>
+                </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped" style="background: white">
+            <thead>
+            <tr>
+                <th class="col-md-3">Nama Pengguna</th>
+                <th class="col-md-2">Pin</th>
+                <th class="col-md-2">Email</th>
+                <th class="col-md-2">Aksi</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="row in dataUsers">
+                <td class="col-md-2">{{row.username}}</td>
+                <td class="col-md-2">{{row.pin}}</td>
+                <td class="col-md-2">{{row.email}}</td>
+                <td class="col-md-2">
+                    <!--detail-->
+                    <button type="button" ng-click="users(row.id)" md-ink-ripple uib-tooltip="Detail Pengguna"
+                            class="btn btn-sm btn-info">
+                        <i class="glyphicon glyphicon-zoom-in"></i>
+                    </button>
+                    <span >
+                        <a ui-sref="app.users-edit({id:row.id})" md-ink-ripple uib-tooltip="Edit Data"
+                           class="btn btn-sm btn-default">
+                            <i class="glyphicon glyphicon-edit"></i>
+                        </a></span>
+                    <button type="button" ng-click="hapus(row.id)" md-ink-ripple uib-tooltip="Hapus Data"
+                            class="btn btn-sm btn-danger" >
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--</div>-->
+    <!--panel pagination-->
+    <div class="panel-body" style="background: white">
+        <div class="col-sm-4 text-center-xs" style="margin-top: 27px;">
+            <strong>Menampilkan {{from}} - {{to}} dari {{total}} Data</strong>
+        </div>
+        <div class="col-sm-8 text-right-xs text-center-xs">
+            <ul class="pagination m-t-none m-b-none">
+                <li uib-tooltip="Halaman Pertama">
+                    <button md-ink-ripple class="btn btn-default" type="button" ng-click='firstPage()'
+                            ng-disabled='current_page == 1 || disUtamrow.btnPagging'><i
+                            class="fa fa-angle-double-left"></i></button>
+                </li>
+                <li uib-tooltip="Halaman Sebelumnya">
+                    <button md-ink-ripple class="btn btn-default" type="button" ng-click='previousPage()'
+                            ng-disabled='current_page <= 1 || disUtamrow.btnPagging'><i
+                            class="fa fa-angle-left"></i></button>
+                </li>
+                <li uib-tooltip="Halaman Selanjutnya">
+                    <button md-ink-ripple class="btn btn-default" type="button" ng-click='nextPage()'
+                            ng-disabled='main.page >= last_page || disUtamrow.btnPagging'><i
+                            class="fa fa-angle-right"></i></button>
+                </li>
+                <li uib-tooltip="Halaman Terakhir">
+                    <button md-ink-ripple class="btn btn-default" type="button" ng-click='lastPage()'
+                            ng-disabled='main.page >= last_page || disUtamrow.btnPagging'><i
+                            class="fa fa-angle-double-right"></i></button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- /Base -->

@@ -1,0 +1,87 @@
+<md-dialog>
+    <div class="panel-heading bg-white" style="background: #b2b2b2;">
+        <span class="font-bold"><center><font
+                color="black"><b>ORGANISASI PEMERINTAH </b></font></center></span>
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th class="col-md-2">Kode Akun Organisasi</th>
+                    <th class="col-md-2">Jenis Akun Pengguna</th>
+                    <th class="col-md-4">Organisasi Pemerintah Desa/Kelurahan</th>
+                    <th class="col-md-1">Status</th>
+                    <th class="col-md-2">Aksi</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="row in dataOrganisasi">
+                    <td class="col-md-2">{{row.kode_akun}}</td>
+                    <td class="col-md-2">{{row.jenis_akun.akun}}</td>
+                    <td class="col-md-4">{{row.akun}}</td>
+                    <td class="col-md-1">
+                        <span ng-if="row.is_lock==0" class="label label-sm label-info">Draft</span>
+                        <span ng-if="row.is_lock==1" class="label label-sm label-success">Final</span>
+                        <span ng-if="row.is_lock==2" class="label label-sm label-danger">Non Aktif</span>
+                    </td>
+
+                    <td class="col-md-2">
+                        <span ng-show="id ==0">
+                        <button ng-click="pilihdataoraganisasi(row)" md-ink-ripple tooltip="Pilih Data" class="btn btn-sm btn-info">
+                            <i class="glyphicon glyphicon-check"></i>
+                        </button>
+                        </span>
+                        <span ng-show="id ==1">
+                        <button ng-click="pilihdataoraganisasi(row)" md-ink-ripple tooltip="Pilih Data" class="btn btn-sm btn-info" ng-show="cobadata[row.id] < 2 ">
+                            <i class="glyphicon glyphicon-check"></i>
+                        </button>
+                            <label class="label-success" ng-show="cobadata[row.id] > 1 ">Organisasi Penuh</label>
+                        <span ng-show="id ==2">
+                        <button ng-click="pilihdataoraganisasi(row)" md-ink-ripple tooltip="Pilih Data" class="btn btn-sm btn-info" ng-show="cobadata[row.id] < 1 ">
+                            <i class="glyphicon glyphicon-check"></i>
+                        </button>
+                            <label class="label-success" ng-show="cobadata[row.id] > 0 ">Organisasi Penuh</label>
+
+                        </span>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--panel pagination-->
+        <div class="panel-body" style="background: white">
+            <div class="col-sm-4 text-center-xs" style="margin-top: 27px;">
+                <strong>Menampilkan {{from}} - {{to}} dari {{total}} Data</strong>
+            </div>
+            <div class="col-sm-8 text-right text-center-xs">
+                <ul class="pagination m-t-none m-b-none">
+                    <li uib-tooltip="Halaman Pertama">
+                        <button md-ink-ripple class="btn btn-default" type="button" ng-click='firstPage()'
+                                ng-disabled='current_page == 1 || disUtamrow.btnPagging'><i
+                                class="fa fa-angle-double-left"></i></button>
+                    </li>
+                    <li uib-tooltip="Halaman Sebelumnya">
+                        <button md-ink-ripple class="btn btn-default" type="button" ng-click='previousPage()'
+                                ng-disabled='current_page <= 1 || disUtamrow.btnPagging'><i
+                                class="fa fa-angle-left"></i></button>
+                    </li>
+                    <li uib-tooltip="Halaman Selanjutnya">
+                        <button md-ink-ripple class="btn btn-default" type="button" ng-click='nextPage()'
+                                ng-disabled='main.page >= last_page || disUtamrow.btnPagging'><i
+                                class="fa fa-angle-right"></i></button>
+                    </li>
+                    <li uib-tooltip="Halaman Terakhir">
+                        <button md-ink-ripple class="btn btn-default" type="button" ng-click='lastPage()'
+                                ng-disabled='main.page >= last_page || disUtamrow.btnPagging'><i
+                                class="fa fa-angle-double-right"></i></button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <footer class="panel-footer text-center" style="background: #ffffff">
+        <button class="btn btn-fw btn-blue" ng-click="cancel()">Kembali</button>
+    </footer>
+</md-dialog>

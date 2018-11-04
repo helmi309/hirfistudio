@@ -1,0 +1,48 @@
+<md-dialog>
+    <div class="panel-heading bg-white" style="background: #b2b2b2;">
+        <span class="font-bold"><center><font color="black"><b>DATA DETAIL PENGGUNA</b></font></center></span>
+    </div>
+    <div class="panel-body">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Nama Pengguna  :</label>
+                <div class="col-sm-9">
+                    <p class="form-control-static">
+                        <span style="padding-left: 8px;"></span>{{myModel.name}}
+                    </p>
+                </div>
+                <label class="col-sm-3 control-label">Kontak Pribadi  :</label>
+                <div ng-if="input.prov_id != ''" class="col-sm-9">
+                    <p class="form-control-static">
+                        <span style="padding-left: 8px;"></span>{{myModel.no_telp}}
+                    </p>
+                </div>
+                <label class="col-sm-3 control-label">Email  :</label>
+                <div ng-if="input.prov_id != ''" class="col-sm-9">
+                    <p class="form-control-static">
+                        <span style="padding-left: 8px;"></span>{{myModel.email}}
+                    </p>
+                </div>
+                <label class="col-sm-3 control-label">Level  :</label>
+                <div ng-if="input.prov_id != ''" class="col-sm-9">
+                    <p class="form-control-static">
+                        <span ng-if="myModel.level==0" class="label label-sm label-warning">Administrator</span>
+                        <span ng-if="myModel.level==1" class="label label-sm label-success">Operator</span>
+                        <span ng-if="myModel.level==2" class="label label-sm label-info">Kontributor</span>
+                    </p>
+                </div>
+                <!--<label class="col-sm-3 control-label">Minimal Transaksi :</label>-->
+                <!--<div ng-if="input.prov_id != ''" class="col-sm-9">-->
+                    <!--<p class="form-control-static">-->
+                        <!--<span style="padding-left: 8px;"></span>{{myModel.min_transaksi}}-->
+                    <!--</p>-->
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+    <footer class="panel-footer text-center" style="background: #ffffff">
+        <md-button class="btn btn-fw btn-blue" ng-click='cancel()' uib-tooltip="Kembali">
+            Kembali
+        </md-button>
+    </footer>
+</md-dialog>

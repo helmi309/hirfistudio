@@ -103,19 +103,20 @@
                         <a href="" class="pageapp-login-logo">
                             <img src="../assets_mobile/images/preload-logo.png">
                         </a>
-                        <h4>
-                            <?php if (session()->has('auth_message')) { ?>
-                            <h7 style="color: red"><?php echo session()->get('auth_message') ?></h7>
-                            <?php } ?></h4>
+<h4>
 
                         <!-- /end logo heading -->
 
                         <!-- Form Input & Validation -->
-                        <form  action="{{URL::to('api/post-login')}}" method="post">
+                        <form  action="api/post-login" method="post">
+                            <?php if (session()->has('auth_message')) { ?>
+                            <h7 style="color: red"><?php echo session()->get('auth_message') ?></h7>
+    <?php } ?></h4>
+
                             <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"/>
                         <div class="pageapp-login-input">
                             <i class="login-icon ion-ios-person-outline"></i>
-                            <input type="text" value="Username" name="email" onfocus="if (this.value=='Username') this.value = ''" onblur="if (this.value=='') this.value = 'Username'">
+                            <input type="text" value="Email" name="email" onfocus="if (this.value=='Email') this.value = ''" onblur="if (this.value=='') this.value = 'Email'">
                         </div>                
                         <div class="pageapp-login-input">
                             <i class="login-icon ion-ios-close-empty"></i>

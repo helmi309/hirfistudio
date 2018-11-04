@@ -63,7 +63,49 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
             resolve: loadSequence('SplEditCtrl', 'spl_service','ngImgCrop'),
     })
 
-    .state('app.ui', {
+        //users
+        .state('app.users', {
+            url: '/users',
+            templateUrl: 'assets/src/users/users-list.html',
+            title: 'Data Pengguna',
+            resolve: loadSequence('UsersCtrl', 'users_service'),
+
+        })
+        //users Create
+        .state('app.users-create', {
+            url: '/users-create',
+            templateUrl: 'assets/src/users/users-create.html',
+            title: 'Tambah Data Pengguna',
+            resolve: loadSequence('UserscreateCtrl', 'users_service'),
+        })
+        //users Edit
+        .state('app.users-edit', {
+            url: '/users-edit/:id',
+            templateUrl: 'assets/src/users/users-edit.html',
+            title: 'Edit Data Pengguna',
+            resolve: loadSequence('UserseditCtrl', 'users_service'),
+        })
+
+
+        //users password
+        .state('app.users-password', {
+            url: '/users-password',
+            templateUrl: 'assets/src/users/users-password.html',
+            title: 'Ganti Password',
+            resolve: loadSequence('UserspasswordCtrl', 'users_service','flow'),
+        })
+
+
+
+
+
+
+
+
+
+
+
+        .state('app.ui', {
         url: '/ui',
         template: '<div ui-view class="fade-in-up"></div>',
         title: 'UI Elements',

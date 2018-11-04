@@ -1,0 +1,109 @@
+<!-- start: PAGE TITLE -->
+<div class="alert {{alertset.class}} lighten-4 {{alertset.class}}-text text-darken-2 {{alertset.show}}">
+    <span ng-repeat="(key, value) in alertset.msg">{{value}}</span>
+</div>
+<div class="panel-default" ng-controller="UsersEditCtrl">
+
+    <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+        {{alert.msg}}
+    </uib-alert>
+    <!--<section id="page-title">-->
+    <!--<div class="row">-->
+    <!--<div class="col-sm-8">-->
+    <!--<h1 class="mainTitle">FORM EDIT USERS</h1>-->
+    <!--</div>-->
+    <!--&lt;!&ndash;<div ncy-breadcrumb></div>&ndash;&gt;-->
+    <!--</div>-->
+    <!--</section>-->
+
+    <!-- end: PAGE TITLE -->
+    <!-- start: FORM VALIDATION -->
+    <div class="panel-heading bg-white" style="background: #b3c4c7;">
+        <span class="font-bold"><left><font color="black"><b>EDIT DATA PENGGUNA</b></font></left></span>
+    </div>
+    <div class="panel-body bg-tr-white" style="background: white;">
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <form name="Form">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <fieldset>
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.username.$dirty && Form.username.$invalid, 'has-success':Form.username.$valid}">
+                                        <label class="control-label">
+                                            Nama Lengkap <span class="symbol required"></span>
+                                        </label>
+                                        <input type="text" placeholder="Enter your username" class="form-control"
+                                               name="Nama Lengkap" ng-model="myModel.username" required/>
+                                        <span class="error text-small block"
+                                              ng-if="Form.username.$dirty && Form.username.$invalid">Nama Lengkap Harus Diisi</span>
+                                        <span class="success text-small" ng-if="Form.username.$valid">Nama Lengkap Terisi</span>
+                                    </div>
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.pin.$dirty && Form.pin.$invalid, 'has-success':Form.pin.$valid}">
+                                        <label class="control-label">
+                                            Pin<span class="symbol required"></span>
+                                        </label>
+                                        <input type="text" placeholder="Pin" class="form-control" name="pin"
+                                               ng-model="myModel.pin" required/>
+                                        <span class="error text-small block"
+                                              ng-if="Form.no_telp.$dirty && Form.no_telp.$invalid">Pin Harus Diisi</span>
+                                        <span class="success text-small"
+                                              ng-if="Form.no_telp.$valid">Pin Terisi</span>
+                                    </div>
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.email.$dirty && Form.email.$invalid, 'has-success':Form.email.$valid}">
+                                        <label class="control-label">
+                                            Email <span class="symbol required"></span>
+                                        </label>
+                                        <input type="email" placeholder="Enter a valid E-mail" class="form-control"
+                                               name="email" ng-model="myModel.email" required>
+                                        <span class="error text-small block"
+                                              ng-if="Form.email.$dirty && Form.email.$error.required">Email Harus diisi</span>
+                                        <span class="error text-small block" ng-if="Form.email.$error.email">Inputkan Email Anda Secara Benar!</span>
+                                        <span class="success text-small" ng-if="Form.email.$valid">Email benar</span>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <button md-ink-ripple class="btn btn-primary" ng-click="updateData()"
+                                            ng-disabled="Form.$invalid || process">Simpan
+                                    </button>
+                                    <button md-ink-ripple class="btn btn-primary btn-o" ui-sref="app.users"
+                                            ng-disabled="process">Kembali
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end: FORM VALIDATION -->
+<script>
+    function convertToRupiah(objek) {
+        separator = ".";
+        a = objek.value;
+        b = a.replace(/[^\d]/g, "");
+        c = "";
+        panjang = b.length;
+        j = 0;
+        for (i = panjang; i > 0; i--) {
+            j = j + 1;
+            if (((j % 3) == 1) && (j != 1)) {
+                c = b.substr(i - 1, 1) + separator + c;
+            } else {
+                c = b.substr(i - 1, 1) + c;
+            }
+        }
+        objek.value = 'Rp.' + c;
+
+    }
+
+</script>

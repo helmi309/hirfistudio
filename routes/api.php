@@ -13,6 +13,16 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:api');
+Route::resource('spl', 'SplController');
+// Rute API tabel User
+Route::resource('users', 'UserController');
+Route::put('updatePass-users', 'UserController@updatePass');
+Route::get('get-session', 'UserController@getSession');
+
+Route::group(['namespace' => 'Auth'], function () {
+    // Authentication routes...
+    Route::get('get-login', 'LoginController@getLogin');
+    Route::get('logout', 'LoginController@getLogout');
+    Route::get('post-login', 'LoginController@getLogin');
+    Route::post('post-login', 'LoginController@postLogin');
+});

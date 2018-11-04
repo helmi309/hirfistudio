@@ -64,7 +64,13 @@ app.constant('JS_REQUIRES', {
         'spl_service': 'assets/src/spl/spl-service.js',
         'SplCreateCtrl': 'assets/src/spl/SplCreateCtrl.js',
         'SplEditCtrl': 'assets/src/spl/SplEditCtrl.js',
-        
+
+        'UsersCtrl'    : 'assets/src/users/UsersCtrl.js',
+        'UserspasswordCtrl'    : 'assets/src/users/UsersPassword.js',
+        'UserscreateCtrl'    : 'assets/src/users/UsersCreateCtrl.js',
+        'UserseditCtrl'    : 'assets/src/users/UsersEditCtrl.js',
+        'users_service': 'assets/src/users/users-service.js',
+
         //*** Filters
         'htmlToPlaintext': 'assets/js/filters/htmlToPlaintext.js'
     },

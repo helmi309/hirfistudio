@@ -67,11 +67,10 @@ class UserRepository extends AbstractRepository implements UserInterface, Crudab
     {
         // Mengeksekusi Create data ke dalam SQL.
         return parent::create([
-            'id'       => e($data['id']),
             'username' => e($data['username']),
             'email'    => e($data['email']),
-            'password' => e($data['password']),
-            'level'    => e($data['level']),
+            'password' => bcrypt($data['password']),
+            'level'    => '0',
             'pin'      => e($data['pin'])
         ]);
     }
@@ -85,13 +84,48 @@ class UserRepository extends AbstractRepository implements UserInterface, Crudab
     {
         // Mengeksekusi Update data ke dalam SQL.
         return parent::update($id, [
-            'id'       => e($data['id']),
             'username' => e($data['username']),
             'email'    => e($data['email']),
-            'password' => e($data['password']),
-            'level'    => e($data['level']),
             'pin'      => e($data['pin'])
         ]);
+    }
+
+    public function updatePassword(array $data)
+    {
+        try {
+            $user = $this->model->find(session('user_id'));
+            if ($user) {
+                $old_password = $user->password;
+
+                if (\Hash::check($data['old_password'], $old_password)) {
+                    // flush cache with tags
+
+                    $user->password = bcrypt($data['new_password']);
+                    $user->save();
+
+                    return $this->updateSuccess($data);
+                }
+
+                return [
+                    'success' => false,
+                    'result'  => [
+                        'message' => 'Password lama tidak cocok.',
+                    ],
+                ];
+            }
+
+            return [
+                'success' => false,
+                'result'  => [
+                    'message' => 'Data tidak ditemukan',
+                ],
+            ];
+        } catch (\Exception $e) {
+            // store errors to log
+            \Log::error('class : ' . UserRepository::class . ' method : put | ' . $e);
+
+            return $this->createError();
+        }
     }
 
     /**

@@ -31,8 +31,8 @@ class UserCreateRequest extends Request
     protected $attrs = [
         'username'     => 'Username',
         'email'        => 'Email',
-        'password'     => 'Password',
-        'level'        => 'Level'
+//        'password'     => 'Password',
+//        'level'        => 'Level'
     ];
 
     /**
@@ -45,8 +45,8 @@ class UserCreateRequest extends Request
         return [
             'username'     => 'required|max:225',
             'email'        => 'required|max:255',
-            'password'     => 'required|max:255',
-            'level'        => 'required|max:255'
+//            'password'     => 'required|max:255',
+//            'level'        => 'required|max:255'
         ];
     }
 
@@ -75,8 +75,8 @@ class UserCreateRequest extends Request
             'validation' => [
                 'username'     => $message->first('username'),
                 'email'        => $message->first('email'),
-                'password'     => $message->first('password'),
-                'level'        => $message->first('level')
+//                'password'     => $message->first('password'),
+//                'level'        => $message->first('level')
             ]
         ];
     }

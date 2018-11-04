@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain\Repositories\UserRepository;
+use App\Http\Requests\User\PasswordRequest;
 use App\Http\Requests\User\UserCreateRequest;
 use App\Http\Requests\User\UserEditRequest;
 use Illuminate\Http\Request;
@@ -20,10 +22,10 @@ class UserController extends Controller
      * UserController constructor.
      * @param UserInterface $user
      */
-    public function __construct(UserInterface $user)
+    public function __construct(UserRepository $user)
     {
         $this->user = $user;
-//         $this->middleware('auth');
+         $this->middleware('auth');
     }
 
     /**
@@ -37,6 +39,11 @@ class UserController extends Controller
     {
         return $this->user->paginate(10, $request->input('page'), $column = ['*'], '', $request->input('term'));
     }
+    public function updatePass(PasswordRequest $request)
+    {
+        return $this->user->updatePassword($request->all());
+    }
+
 
     /**
      * @api {get} api/user/id Request Get User
@@ -87,7 +94,7 @@ class UserController extends Controller
      *
      * @apiError EmailHasRegitered The Email must diffrerent.
      */
-    public function update(UserEditRequest $request, $id)
+    public function update(Request $request, $id)
     {
         return $this->user->update($id, $request->all());
     }
@@ -110,15 +117,15 @@ class UserController extends Controller
     public function getSession()
     {
         $this->middleware('auth');
-//        if (session('email') == null) {
-//            return response()->json(
-//                [
-//                    'success' => false,
-//                    'result' => 'redirect'
-//                ], 401
-//            );
-//        }
-dump(Auth::user());
+        if (session('email') == null) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'result' => 'redirect'
+                ], 401
+            );
+        }
+//dump(Auth::user());
         return response()->json([
             'success' => true,
             'result' => [

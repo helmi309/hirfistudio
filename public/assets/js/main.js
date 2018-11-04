@@ -59,7 +59,7 @@ function ($rootScope, $state, $stateParams,mainapp) {
     //   window.location = "/api/logout";
     // };
     $rootScope.redirect = function () {
-        // window.location = "/api/logout";
+        window.location = "/api/logout";
     };
 
     $rootScope.sup = function () {
